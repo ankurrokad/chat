@@ -29,30 +29,28 @@ const HistoryContainer: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100 p-4 mb-4">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
-        <div className="space-y-4">
-          {chats.map((chat) => (
-            <div
-              key={chat.id}
-              className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-400 transition"
-              onClick={() =>
-                setSelectedChatId(selectedChatId === chat.id ? null : chat.id)
-              }
-            >
-              <div className="font-semibold">
-                <strong>Question:</strong> {chat.user_message}
-              </div>
-              {selectedChatId === chat.id && (
-                <div className="mt-2">
-                  <strong>Answer:</strong>
-                  <ReactMarkdown>{chat.assistant_response}</ReactMarkdown>
-                </div>
-              )}
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+      <div className="space-y-4">
+        {chats.map((chat) => (
+          <div
+            key={chat.id}
+            className="p-4 border border-gray-200 hover:border-gray-600 rounded-lg cursor-pointer transition"
+            onClick={() =>
+              setSelectedChatId(selectedChatId === chat.id ? null : chat.id)
+            }
+          >
+            <div className="font-semibold">
+              <strong>Question:</strong> {chat.user_message}
             </div>
-          ))}
-        </div>
-      </div>{" "}
+            {selectedChatId === chat.id && (
+              <div className="mt-2">
+                <strong>Answer:</strong>
+                <ReactMarkdown>{chat.assistant_response}</ReactMarkdown>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

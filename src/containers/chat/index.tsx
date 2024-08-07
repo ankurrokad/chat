@@ -44,7 +44,7 @@ const ChatContainer: React.FC = () => {
 
   return (
     <div>
-      <div className="bg-gray-100 p-4 h-[calc(100vh-140px)] overflow-y-auto mb-4">
+      <div className="bg-white p-6 rounded-lg shadow-lg h-[calc(100vh-140px)] overflow-y-auto mb-4">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -67,7 +67,7 @@ const ChatContainer: React.FC = () => {
             </div>
           </div>
         ))}
-        {isLoading && <div className="text-center">Thinking...</div>}
+        {isLoading && <div className="text-left">Thinking...</div>}
       </div>
       <form onSubmit={handleSubmit} className="flex">
         <input

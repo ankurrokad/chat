@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import { supabase } from "@/libs/supabase";
 
 interface Message {
   role: "user" | "assistant";
@@ -14,6 +15,7 @@ const Home: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!input.trim()) return;
 
     const userMessage: Message = { role: "user", content: input };
@@ -40,9 +42,6 @@ const Home: React.FC = () => {
 
     setIsLoading(false);
   };
-
-  console.log("messages", messages);
-
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Chat</h1>

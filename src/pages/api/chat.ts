@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
+import { supabase } from "@/libs/supabase";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,7 +12,6 @@ export default async function handler(
 
   const { messages } = req.body;
 
-  // Add a system message to provide context for the GPSC exam preparation helper
   const systemMessage = {
     role: "system",
     content:
@@ -38,6 +38,20 @@ export default async function handler(
     );
 
     const assistantMessage = response.data.choices[0].message.content;
+
+    // Store chat message and response in Supabase
+    const { data, error } = await supabase.from("chats").insert([
+      {
+        user_message: messages[messages.length - 1].content, // Assuming the last message is from the user
+        assistant_response: assistantMessage,
+      },
+    ]);
+
+    if (error) {
+      console.error("Supabase error:", error);
+      return res.status(500).json({ message: "Failed to store chat message." });
+    }
+
     res.status(200).json({ message: assistantMessage });
   } catch (error: any) {
     console.error("Error:", error);

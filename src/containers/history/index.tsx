@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+
 interface Chat {
   id: number;
   user_message: string;
@@ -27,14 +29,13 @@ const HistoryContainer: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100 p-4  overflow-y-auto mb-4">
+    <div className="bg-gray-100 p-4 mb-4">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Chat Questions and Answers</h1>
-        <ul className="space-y-4 max-h-96 overflow-y-auto">
+        <div className="space-y-4 max-h-96 overflow-y-auto">
           {chats.map((chat) => (
-            <li
+            <div
               key={chat.id}
-              className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-100 transition"
+              className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-400 transition"
               onClick={() =>
                 setSelectedChatId(selectedChatId === chat.id ? null : chat.id)
               }
@@ -44,12 +45,13 @@ const HistoryContainer: React.FC = () => {
               </div>
               {selectedChatId === chat.id && (
                 <div className="mt-2">
-                  <strong>Answer:</strong> {chat.assistant_response}
+                  <strong>Answer:</strong>
+                  <ReactMarkdown>{chat.assistant_response}</ReactMarkdown>
                 </div>
               )}
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>{" "}
     </div>
   );

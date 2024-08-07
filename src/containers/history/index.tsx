@@ -31,7 +31,7 @@ const HistoryContainer: React.FC = () => {
   return (
     <div className="bg-gray-100 p-4 mb-4">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
-        <div className="space-y-4 max-h-96 overflow-y-auto">
+        <div className="space-y-4">
           {chats.map((chat) => (
             <div
               key={chat.id}
